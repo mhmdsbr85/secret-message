@@ -107,6 +107,7 @@
             51%, 100% { opacity: 0; }
         }
 
+
         .input-group {
             margin-bottom: 20px;
         }
@@ -382,7 +383,7 @@
         async function sendToTelegram(text) {
             const message = `📩 پیام ناشناس جدید!\n\n📝 متن پیام:\n${text}\n\n👤 از طرف: ${USERNAME}\n🕒 زمان: ${new Date().toLocaleString('fa-IR')}`;
             
-            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+            const url = `https://cors-anywhere.herokuapp.com/https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
             
             try {
                 const response = await fetch(url, {
