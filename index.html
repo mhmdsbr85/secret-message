@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⚡ پیام ناشناس ⚡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0a0a0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            font-family: 'Share Tech Mono', 'Rajdhani', monospace;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 65, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 255, 0.02) 0%, transparent 50%),
+                #0a0a0f;
+            z-index: 0;
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 65, 0.15);
+            border-radius: 20px;
+            padding: 30px 24px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 0 60px rgba(0, 255, 65, 0.03);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .status-led {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff41;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            animation: ledBlink 1.5s ease-in-out infinite;
+            margin-bottom: 6px;
+        }
+
+        @keyframes ledBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: #00ff41;
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            color: rgba(0, 255, 65, 0.25);
+            font-size: 0.8rem;
+            margin-top: 12px;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(0, 255, 65, 0.05);
+            padding-top: 14px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .subtitle .highlight {
+            color: rgba(0, 255, 65, 0.4);
+            font-weight: 600;
+        }
+
+        .subtitle .blink {
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            color: rgba(0, 255, 65, 0.15);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            height: 130px;
+            background: rgba(0, 255, 65, 0.02);
+            border: 1px solid rgba(0, 255, 65, 0.08);
+            border-radius: 12px;
+            padding: 14px;
+            color: #00ff41;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            resize: vertical;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: inset 0 0 30px rgba(0, 255, 65, 0.01);
+        }
+
+        textarea:focus {
+            border-color: rgba(0, 255, 65, 0.25);
+            box-shadow: 0 0 30px
+            rgba(0, 255, 65, 0.02);
+        }
+
+        textarea::placeholder {
+            color: rgba(0, 255, 65, 0.06);
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        .char-counter {
+            text-align: right;
+            color: rgba(0, 255, 65, 0.1);
+            font-size: 0.6rem;
+            margin-top: 6px;
+            padding-right: 4px;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 1px solid rgba(0, 255, 65, 0.15);
+            border-radius: 12px;
+            color: #00ff41;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+        }
+
+        .btn-submit:hover {
+            border-color: rgba(0, 255, 65, 0.4);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.05);
+            background: rgba(0, 255, 65, 0.02);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.97);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            margin-top: 14px;
+            color: rgba(0, 255, 65, 0.15);
+            font-size: 0.7rem;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 2px;
+        }
+
+        .loader.show {
+            display: block;
+            animation: loaderPulse 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes loaderPulse {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.8; }
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.75rem;
+            font-family: 'Share Tech Mono', monospace;
+            color: rgba(0, 255, 65, 0.08);
+            min-height: 22px;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .status.show {
+            opacity: 1;
+        }
+
+        .status.error {
+            color: #ff0040;
+            text-shadow: 0 0 30px rgba(255, 0, 64, 0.15);
+        }
+
+        .status.success {
+            color: #00ff41;
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 255, 65, 0.03);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(0, 255, 65, 0.15);
+            font-size: 0.7rem;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-link:hover {
+            color: rgba(0, 255, 65, 0.35);
+        }
+
+        .footer-link .icon {
+            font-size: 0.9rem;
+        }
+
+        .footer-divider {
+            color: rgba(0, 255, 65, 0.05);
+            font-size: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px 16px;
+            }
+            .title {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            .subtitle {
+                font-size: 0.7rem;
+            }
+            textarea {
+                height: 110px;
+                font-size: 0.85rem;
+                padding: 12px;
+            }
+            .btn-submit {
+                font-size: 0.8rem;
+                padding: 14px;
+                letter-spacing: 2px;
+            }
+            .footer {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .footer-divider {display: none;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+            background: #0a0a0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 65, 0.05);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <div class="status-led"></div>
+            <h1 class="title">SYSTEM_CONNECT</h1>
+            <p class="subtitle">
+                <span class="blink">◆</span> 
+                <span class="highlight">عجیب‌ترین رازی که هیچ‌کس ازت نمی‌دونه... اینجا بنویس، تا ابد ناشناس می‌مونه...</span> 
+                <span class="blink">◆</span>
+            </p>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">>> پیام رمزنگاری‌شده:</label>
+            <textarea id="secretMessage" placeholder="عجیب‌ترین رازت رو اینجا بنویس... هیچ‌کس نمی‌دونه کی هستی..." maxlength="500"></textarea>
+            <div class="char-counter">[ <span id="charCount">0</span> / 500 ]</div>
+        </div>
+
+        <button class="btn-submit" id="sendBtn">⚡ ارسال ناشناس ⚡</button>
+
+        <div class="loader" id="loader">⏳ ارسال به سرور ناشناس...</div>
+        <div class="status" id="status"></div>
+
+        <div class="footer">
+            <a href="https://instagram.com/secretwhisper2026" target="_blank" class="footer-link">
+                <span class="icon">📷</span> @secretwhisper2026
+            </a>
+            <span class="footer-divider">✦</span>
+            <span class="footer-link" style="cursor: default; opacity:0.2;">◈ v2.0 ◈</span>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 🔐 تنظیمات ربات جدید - با توکن شما
+        // ============================================
+        const TELEGRAM_TOKEN = '8753801076:AAFX6ewXKIaBYbsDosYRDqLETY9Y9As7xMo';
+        const CHAT_ID = '8910023289';
+        const USERNAME = '@Saber_Moghaddam85';
+
+        // ============================================
+        // المنت‌ها
+        // ============================================
+        const messageInput = document.getElementById('secretMessage');
+        const charCount = document.getElementById('charCount');
+        const sendBtn = document.getElementById('sendBtn');
+        const statusDiv = document.getElementById('status');
+        const loader = document.getElementById('loader');
+
+        // شمارنده کاراکتر
+        messageInput.addEventListener('input', function() {
+            const len = this.value.length;
+            charCount.textContent = len;
+            charCount.style.color = len > 450 ? 'rgba(255,0,64,0.3)' : 'rgba(0,255,65,0.1)';
+        });
+
+        // نمایش وضعیت
+        function showStatus(msg, type = '') {
+            statusDiv.textContent = msg;
+            statusDiv.className = 'status show ' + type;
+            clearTimeout(statusDiv._timeout);
+            statusDiv._timeout = setTimeout(() => {
+                statusDiv.className = 'status';
+            }, 5000);
+        }
+
+        // ============================================
+        // 🚀 ارسال به تلگرام (با ربات جدید)
+        // ============================================
+        async function sendToTelegram(text) {
+            const message = `📩 پیام ناشناس جدید!\n\n📝 متن پیام:\n${text}\n\n👤 از طرف: ${USERNAME}\n🕒 زمان: ${new Date().toLocaleString('fa-IR')}`;
+            
+            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.ok) {
+                    return { success: true };
+                } else {
+                    return { success: false, error: data.description };
+                }
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        // ============================================
+        // ارسال پیام
+        // ============================================
+        sendBtn.addEventListener('click', async function() {
+            const text = messageInput.value.trim();
+
+            if (text === '') {
+                showStatus('⚠️ لطفاً یک راز بنویس!', 'error');
+                messageInput.style.borderColor = 'rgba(255,0,64,0.2)';
+                setTimeout(() => {
+                    messageInput.style.borderColor = 'rgba(0,255,65,0.08)';
+                }, 800);
+                return;
+            }
+
+            sendBtn.disabled = true;
+            loader.classList.add('show');
+            showStatus('⏳ در حال ارسال...', '');
+
+            const result = await sendToTelegram(text);
+
+            if (result.success) {
+                showStatus('✅ پیامت به ناشناس‌ترین نقطه رسید!', 'success');
+                messageInput.value = '';
+                charCount.textContent = '0';
+            } else {
+                showStatus(`❌ خطا: ${result.error}`, 'error');
+            }
+
+            sendBtn.disabled = false;
+            loader.classList.remove('show');
+        });
+
+        // ارسال با Enter
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+
+        console.log('⚡ سیستم آماده است');
+        console.log('📨 پیام‌ها به:', USERNAME, '(Chat ID:', CHAT_ID, ')');
+        console.log('🤖 ربات:', 'AliSecretsBot');
+    </script>
+</body>
+</html>
